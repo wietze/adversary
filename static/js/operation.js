@@ -367,7 +367,19 @@ function deleteOldOperation(){
 		    'index': 'operation',
 		    'id': $('#ops option:selected').attr('value')},
         success:function(data) {
-		    location.reload(true);
+            var selectedIndex = $('#ops').prop('selectedIndex');
+            if(selectedIndex > 1){
+                $('#ops option:selected').remove();
+                $('#ops').prop('selectedIndex', selectedIndex - 1);
+                refresh();
+            } else {
+                if($('#ops option').length > 2){
+                    $('#ops option:selected').remove();
+                    $('#ops').prop('selectedIndex', selectedIndex);
+                    refresh();
+                } else
+                    location.reload(true);
+            }
         }
 	});
 }
